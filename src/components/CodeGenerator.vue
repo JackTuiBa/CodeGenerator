@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { generateCode } from '../utils/deepseek'
 import Prism from 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
