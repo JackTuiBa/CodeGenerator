@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
-const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_KEY
+const DEEPSEEK_API_KEY = 'sk-91dcbcc628124e0f8e4c7e8cf420cd10'
 
 interface CodeGenerationParams {
   prompt: string
@@ -36,22 +37,26 @@ export const generateCode = async (params: CodeGenerationParams) => {
     logprobs: false,
     top_logprobs: null,
   })
-  const response = await axios.post(
-    // '/api',
-    'https://api.deepseek.com/chat/completions',
-    // {
-    //   prompt: `生成${params.lang}组件代码，要求：${params.prompt}。使用最新语法，添加详细注释`,
-    //   temperature: 0.7,
-    //   max_tokens: 1000,
-    // },
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${DEEPSEEK_API_KEY}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+  try {
+    const response = await axios.post(
+      '/api',
+      // 'https://api.deepseek.com/chat/completions',
+      // {
+      //   prompt: `生成${params.lang}组件代码，要求：${params.prompt}。使用最新语法，添加详细注释`,
+      //   temperature: 0.7,
+      //   max_tokens: 1000,
+      // },
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${DEEPSEEK_API_KEY}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
       },
-    },
-  )
-  return response.data.choices[0].text
+    )
+    return response.data.choices[0].text
+  } catch (error) {
+    ElMessage.error('服务器请求繁忙，请稍后再试')
+  }
 }
