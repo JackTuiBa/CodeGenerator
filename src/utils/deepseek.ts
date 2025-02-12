@@ -37,7 +37,8 @@ export const generateCode = async (params: CodeGenerationParams) => {
     top_logprobs: null,
   })
   const response = await axios.post(
-    '/api',
+    // '/api',
+    'https://api.deepseek.com/chat/completions',
     // {
     //   prompt: `生成${params.lang}组件代码，要求：${params.prompt}。使用最新语法，添加详细注释`,
     //   temperature: 0.7,

@@ -26,24 +26,27 @@ const handleGenerate = async () => {
 </script>
 
 <template>
-  <div class="generator-container">
-    <el-select v-model="selectedFramework" placeholder="选择框架">
-      <el-option label="Vue3" value="vue" />
-      <el-option label="React" value="react" />
-    </el-select>
+  <div>
+    <div class="generator-container">
+      <el-select v-model="selectedFramework" placeholder="选择框架">
+        <el-option label="Vue3" value="vue" />
+        <el-option label="React" value="react" />
+      </el-select>
 
-    <el-input
-      v-model="userPrompt"
-      type="textarea"
-      placeholder="输入需求，如：生成一个带搜索功能的表格组件，支持分页"
-      :rows="4"
-    />
+      <el-input
+        v-model="userPrompt"
+        type="textarea"
+        placeholder="输入需求，如：生成一个带搜索功能的表格组件，支持分页"
+        :autosize="{ minRows: 4, maxRows: 6 }"
+        class="custom-textarea"
+      />
 
-    <el-button type="primary" :loading="isLoading" @click="handleGenerate"> 生成代码 </el-button>
+      <el-button type="primary" :loading="isLoading" @click="handleGenerate"> 生成代码 </el-button>
 
-    <pre v-if="generatedCode" class="code-block">
+      <pre v-if="generatedCode" class="code-block">
       <code class="language-javascript">{{ generatedCode }}</code>
     </pre>
+    </div>
   </div>
 </template>
 
@@ -52,7 +55,7 @@ const handleGenerate = async () => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 800px;
+  width: 800px;
   margin: 2rem auto;
 }
 
